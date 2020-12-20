@@ -2,6 +2,8 @@ import React,{ useEffect, useState } from 'react';
 import Movie from './Movie';
 import MovieCard from './MovieCard';
 import Grid from '@material-ui/core/Grid'
+import MovieGrid from './MovieGrid';
+import CircularProgress from '@material-ui/core/CircularProgress'
 
 
 const APIurl = "similar";
@@ -9,35 +11,16 @@ const Search =()=>{
     const[term,setTerm]=useState('The Dark Knight Rises');
     const[results,setResults]=useState([]);
     useEffect(()=>{
-        const search = async ()=>{
-            const response = await fetch(`${APIurl}/${term}/12`, { headers: { 'accept': 'application/json' } });
-            const res = await response.json()
-            setResults(res)
-            console.log(results)
-        };
-        if(term&&!results.length){
-            search();
-        }else{
-            const timeoutId = setTimeout(()=>{
-                if(term){    
-                    search();
-                }
-            },1000);
-        
-            return ()=>{
-                clearTimeout(timeoutId);
-            }
-        }
-        },[term])
-    //
-    // const renderedResults = (results.data !== undefined && results.data.length > 0 && results.data.map((result) => {
-    //         console.log(result.title)
-    //         return (
-    //             <div key = {result.id}>
-    //                 <MovieCard title={result.title} poster={`https://image.tmdb.org/t/p/w200${result.poster_path}`} year={result.year}/>
-    //             </div>
-    //         )
-    //     }))
+        search()
+    },[])
+
+    const search =async () =>{
+        const response = await fetch(`${APIurl}/${term}/12`, { headers: { 'accept': 'application/json' } });
+        const res = await response.json()
+        setResults(res)
+        console.log(results)
+    };
+    
     const renderedResults = (results.data !== undefined && results.data.length > 0 && results.data.map((movie) => {
         return (
                 <Grid key={movie.id} item
@@ -57,15 +40,29 @@ const Search =()=>{
     return(
         <div>
             <div className="ui form">
-                <div className="field">
+                <div class = "field"> 
                     <label>Enter Search Term</label>
-                    <input
-                        value={term}
-                        onChange={e=>setTerm(e.target.value)}
-                        className="input"
-                    />
-                </div>
+                        <div class="two fields">
+                            <div class =" eight wide field"> 
+                                <input
+                                    value={term}
+                                    onChange={e=>setTerm(e.target.value)}
+                                    className="input"
+                                />
+                            </div>
+                            <div class=" wide field">
+                                <button class="ui right floated primary button"
+                                    onClick={() => search()}   
+                                >
+                                Search
+                                </button>
+                            </div>   
+                        </div>
+                    
+                </div> 
             </div>
+            {/* {(results === undefined || results.length === 0) && <CircularProgress/>}
+            { results.data !== undefined  && <MovieGrid movies ={results}/>} */}
             <div>
                 <Grid container spacing={2}
                 style={{padding: '2px'}}
