@@ -1,25 +1,21 @@
 import React,{ useEffect, useState } from 'react';
 import MovieCard from './MovieCard';
 import Grid from '@material-ui/core/Grid'
-import SearchBar from './SearchBar';
-import Toolbar from '@material-ui/core/Toolbar';
 
 
 
 
-const APIurl = "similar";
-const Search =()=>{
-    const[term,setTerm]=useState('The Dark Knight Rises');
+const APIurl = "top";
+const TopAll =()=>{
     const[results,setResults]=useState([]);
     useEffect(()=>{
         search()
     },[])
 
     const search =async () =>{
-        const response = await fetch(`${APIurl}/${term}/12`, { headers: { 'accept': 'application/json' } });
+        const response = await fetch(`${APIurl}/20`, { headers: { 'accept': 'application/json' } });
         const res = await response.json()
         setResults(res)
-        //console.log(results)
     };
     
     const renderedResults = (results.data !== undefined && results.data.length > 0 && results.data.map((movie) => {
@@ -36,22 +32,8 @@ const Search =()=>{
         )
     }))
 
-
-    console.log(term)
     return(
         <div>
-            <div className="ui form">
-                <div class = "field"> 
-                    <Toolbar style ={{right:22}}>
-                            <SearchBar term ={term} setTerm={setTerm}/>
-                        <button class="ui right floated primary button"
-                            onClick={() => search()}   
-                        >
-                        Search
-                        </button>
-                    </Toolbar>   
-                </div> 
-            </div>
             <div style ={{backgroundColor:"#d4d9d5"}}>
                 <Grid container spacing={2}
                 style={{padding: '2px'}}
@@ -63,4 +45,4 @@ const Search =()=>{
     );
 };
 
-export default Search;
+export default TopAll;

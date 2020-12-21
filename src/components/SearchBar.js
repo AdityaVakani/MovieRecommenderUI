@@ -17,7 +17,7 @@ export default function SearchBar({term,setTerm}) {
     },[term])
     
   return (
-    <div style={{ width: 300 }}>
+    <div style={{ width: 600 }}>
       <Autocomplete
         value={term}
         onInputChange ={(e,v)=>setTerm(v)}
@@ -25,7 +25,7 @@ export default function SearchBar({term,setTerm}) {
         freeSolo
         options={titles.map((title) => title.title)}
         renderInput={(params) => (
-          <TextField {...params} label="Search" margin="normal" variant="outlined" value={term} onChange={e=>setTerm(e.target.value)} />
+          <TextField {...params} label="Search" fullWidth margin="normal" variant="outlined" value={term} onChange={e=>setTerm(e.target.value)} />
         )}
       />
     </div>

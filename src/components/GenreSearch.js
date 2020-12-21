@@ -1,22 +1,22 @@
 import React,{ useEffect, useState } from 'react';
 import MovieCard from './MovieCard';
 import Grid from '@material-ui/core/Grid'
-import SearchBar from './SearchBar';
+import GenreDrop from './GenreDrop';
 import Toolbar from '@material-ui/core/Toolbar';
 
 
 
 
-const APIurl = "similar";
-const Search =()=>{
-    const[term,setTerm]=useState('The Dark Knight Rises');
+const APIurl = "genre";
+const GenreSearch =()=>{
+    const[genre,setGenre]=useState('Action');
     const[results,setResults]=useState([]);
     useEffect(()=>{
         search()
     },[])
 
     const search =async () =>{
-        const response = await fetch(`${APIurl}/${term}/12`, { headers: { 'accept': 'application/json' } });
+        const response = await fetch(`${APIurl}/${genre}/12`, { headers: { 'accept': 'application/json' } });
         const res = await response.json()
         setResults(res)
         //console.log(results)
@@ -36,14 +36,12 @@ const Search =()=>{
         )
     }))
 
-
-    console.log(term)
     return(
         <div>
             <div className="ui form">
                 <div class = "field"> 
-                    <Toolbar style ={{right:22}}>
-                            <SearchBar term ={term} setTerm={setTerm}/>
+                    <Toolbar style ={{right:22}}> 
+                            <GenreDrop genre ={genre} setGenre={setGenre}/>
                         <button class="ui right floated primary button"
                             onClick={() => search()}   
                         >
@@ -63,4 +61,4 @@ const Search =()=>{
     );
 };
 
-export default Search;
+export default GenreSearch;

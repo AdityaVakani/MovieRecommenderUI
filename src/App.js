@@ -1,9 +1,10 @@
 import React,{useState} from 'react';
-import Search from './components/Search'
+import TabNav from './components/TabNav';
+
 const App =()=>{
     return(
         <div>
-            <Search/>
+            <TabNav/>
         </div>
     );
 };
