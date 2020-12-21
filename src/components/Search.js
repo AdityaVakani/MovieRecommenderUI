@@ -2,6 +2,7 @@ import React,{ useEffect, useState } from 'react';
 import Movie from './Movie';
 import MovieCard from './MovieCard';
 import Grid from '@material-ui/core/Grid'
+import SearchBar from './SearchBar';
 import MovieGrid from './MovieGrid';
 import CircularProgress from '@material-ui/core/CircularProgress'
 
@@ -18,7 +19,7 @@ const Search =()=>{
         const response = await fetch(`${APIurl}/${term}/12`, { headers: { 'accept': 'application/json' } });
         const res = await response.json()
         setResults(res)
-        console.log(results)
+        //console.log(results)
     };
     
     const renderedResults = (results.data !== undefined && results.data.length > 0 && results.data.map((movie) => {
@@ -36,19 +37,20 @@ const Search =()=>{
     }))
 
 
-
+    console.log(term)
     return(
-        <div>
+        <div style ={{backgroundColor:"#1c1a1c"}}>
             <div className="ui form">
                 <div class = "field"> 
-                    <label>Enter Search Term</label>
+                    {/* <label>Enter Search Term</label> */}
                         <div class="two fields">
                             <div class =" eight wide field"> 
-                                <input
+                                {/* <input
                                     value={term}
                                     onChange={e=>setTerm(e.target.value)}
                                     className="input"
-                                />
+                                /> */}
+                                 <SearchBar term ={term} setTerm={setTerm}/>
                             </div>
                             <div class=" wide field">
                                 <button class="ui right floated primary button"
@@ -72,6 +74,11 @@ const Search =()=>{
             </div>
         </div>
     );
+    // return(
+    //     <div>
+    //         <SearchBar term ={term} setTerm={setTerm}/>
+    //     </div>
+    // )
 };
 
 export default Search;
